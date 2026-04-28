@@ -13,7 +13,6 @@ export default function BugStrictMode() {
 
     return () => {
       clearInterval(interval);
-      console.log('cleanup');
     };
   }, []);
 
