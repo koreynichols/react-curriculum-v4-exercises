@@ -13,8 +13,7 @@ export default function BugMutatedState() {
   let [count, setCount] = useState(0);
 
   function handleAdd() {
-    count++;
-    setCount(count);
+    setCount(count + 1);
   }
 
   return (
@@ -26,4 +25,4 @@ export default function BugMutatedState() {
 }
 
 // Explanation:
-// (Write your explanation here)
+// useState variables should be treated as immutable. To change the value of the useState variable you should use setter function

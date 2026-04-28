@@ -1,5 +1,7 @@
 // src/exercises/lesson-03/BugProps.jsx
 
+import { useState } from 'react';
+
 /*
   BUG #3 — Props Not Updating
 
@@ -13,10 +15,11 @@
 */
 
 export default function BugProps({ name = 'friend' }) {
-  let message = 'Hello, ' + name;
+  const [message, setMessage] = useState('hello, ' + name);
+  // let message = 'Hello, ' + name;
 
   function handleChange() {
-    message = 'Hi, ' + name + '!';
+    setMessage('Hi, ' + name + '!');
   }
 
   return (
@@ -28,4 +31,4 @@ export default function BugProps({ name = 'friend' }) {
 }
 
 // Explanation:
-// (Write your explanation here)
+// Having message stored that way doesn't let React know if and when message was updated. Using state, react will know to re-render due to state changes.
