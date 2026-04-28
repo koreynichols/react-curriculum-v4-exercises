@@ -12,7 +12,9 @@ export default function Parent() {
     <div>
       <h2>Parent-Child Communication</h2>
       <p>Counter: {count}</p>
-      <Child />
+      <Child callIncrement={increment} />
     </div>
   );
 }
+
+//To call a function from the child we pass the function through props to create a callback function.
