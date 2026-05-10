@@ -8,10 +8,13 @@ export default function SnackForm({
   updateSnack,
   className,
 }) {
-  const isEditing = Boolean(editingSnack);
   const [name, setName] = useState('');
   const [rating, setRating] = useState('');
   const [touched, setTouched] = useState({ name: false, rating: false });
+
+  const isEditing = Boolean(editingSnack);
+  const nameError = getNameError();
+  const ratingError = getRatingError();
 
   useEffect(() => {
     if (editingSnack) {
@@ -39,21 +42,31 @@ export default function SnackForm({
   }
 
   function validateName() {
-    if (name.trim() != '') return true;
+    if (name.trim() != '') {
+      return true;
+    }
     return false;
   }
 
   function validateRating() {
-    if (rating.value != null) return true;
+    if (rating != '') {
+      return true;
+    }
     return false;
   }
 
   function getNameError() {
-    if (!validateName && touched.name) return 'Snack name is required';
+    if (!validateName() && touched.name) {
+      return 'Snack name is required';
+    }
+    return '';
   }
 
   function getRatingError() {
-    if (!validateRating && touched.rating) return 'Please select a rating';
+    if (!validateRating() && touched.rating) {
+      return 'Please select a rating';
+    }
+    return '';
   }
 
   return (
@@ -73,12 +86,13 @@ export default function SnackForm({
           value={name}
           onChange={(e) => setName(e.target.value)}
           onFocus={() => setTouched((prev) => ({ ...prev, name: true }))}
-          required
           className={styles['field-input']}
           placeholder="Enter snack name"
         />
       </div>
-
+      <div className="error">
+        {nameError && <div className={styles.error}>{nameError}</div>}
+      </div>
       <div className={styles['field-container']}>
         <label className={styles['field-label']}>Rating:</label>
         <input
@@ -87,14 +101,15 @@ export default function SnackForm({
           value={rating}
           onChange={(e) => setRating(e.target.value)}
           onFocus={() => setTouched((prev) => ({ ...prev, rating: true }))}
-          required
           min="1"
           max="5"
           className={styles['field-input']}
           placeholder="Rate 1-5"
         />
       </div>
-
+      <div className="error">
+        {ratingError && <div className={styles.error}>{ratingError}</div>}
+      </div>
       <div className={styles['button-container']}>
         <button
           type="submit"
