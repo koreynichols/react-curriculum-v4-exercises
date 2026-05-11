@@ -29,15 +29,19 @@ export default function SnackForm({
 
   function handleSubmit(e) {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const name = formData.get('name');
-    const rating = formData.get('rating');
+
+    if (!validateName() || !validateRating()) {
+      setTouched({ name: true, rating: true });
+      return;
+    }
 
     if (isEditing) {
       updateSnack(editingSnack.id, name, rating);
     } else {
       addSnack(name, rating);
-      e.target.reset();
+      setName('');
+      setRating('');
+      setTouched({ name: false, rating: false });
     }
   }
 
@@ -90,9 +94,7 @@ export default function SnackForm({
           placeholder="Enter snack name"
         />
       </div>
-      <div className="error">
-        {nameError && <div className={styles.error}>{nameError}</div>}
-      </div>
+      {nameError && <div className={styles.error}>{nameError}</div>}
       <div className={styles['field-container']}>
         <label className={styles['field-label']}>Rating:</label>
         <input
@@ -107,9 +109,7 @@ export default function SnackForm({
           placeholder="Rate 1-5"
         />
       </div>
-      <div className="error">
-        {ratingError && <div className={styles.error}>{ratingError}</div>}
-      </div>
+      {ratingError && <div className={styles.error}>{ratingError}</div>}
       <div className={styles['button-container']}>
         <button
           type="submit"
