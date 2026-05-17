@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import UserProfile from './components/UserProfile';
 
 export default function StudentWork() {
   const [tasks, setTasks] = useState([]);
@@ -35,7 +36,7 @@ export default function StudentWork() {
   return (
     <div>
       {/* #3: Hardcoded UI, not reusable */}
-      <h2>Welcome, Student</h2>
+      <UserProfile name="Student" />
 
       {/* #4: Repeated button JSX */}
       <div>
