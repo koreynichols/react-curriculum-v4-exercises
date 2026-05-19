@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import UserProfile from './components/UserProfile';
 import FilterButtons from './components/FilterButtons';
 import TaskItem from './components/TaskItem';
+import filterTasks from './utils/filterTasks';
 
 export default function StudentWork() {
   const [tasks, setTasks] = useState([]);
@@ -24,13 +25,7 @@ export default function StudentWork() {
   }, []);
 
   // #2: Filtering logic inside component
-  let visibleTasks = tasks;
-  if (filter === 'completed') {
-    visibleTasks = tasks.filter((task) => task.completed);
-  }
-  if (filter === 'pending') {
-    visibleTasks = tasks.filter((task) => !task.completed);
-  }
+  let visibleTasks = filterTasks(tasks, filter);
 
   if (loading) {
     return <p>Loading tasks...</p>;
