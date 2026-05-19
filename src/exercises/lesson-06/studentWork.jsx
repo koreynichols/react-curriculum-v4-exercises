@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import UserProfile from './components/UserProfile';
 import FilterButtons from './components/FilterButtons';
+import TaskItem from './components/TaskItem';
 
 export default function StudentWork() {
   const [tasks, setTasks] = useState([]);
@@ -46,9 +47,7 @@ export default function StudentWork() {
       {/* #5: Inline list rendering */}
       <ul>
         {visibleTasks.map((task) => (
-          <li key={task.id}>
-            {task.title} {task.completed ? '✅' : '⏳'}
-          </li>
+          <TaskItem key={task.id} task={task} />
         ))}
       </ul>
     </div>
